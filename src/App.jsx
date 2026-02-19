@@ -1,6 +1,13 @@
 import DataImage from "./data";
-import { listTools, listProyek } from "./data";
+import { listProyek, listPhotos } from "./data";
 import emailjs from "@emailjs/browser";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import "yet-another-react-lightbox/plugins/captions.css";
 
 function App() {
   const handleSubmit = async (e) => {
@@ -16,13 +23,77 @@ function App() {
         alert("Gagal mengirim pesan. Silakan coba lagi.");
       });
   };
+
+  const [text] = useTypewriter({
+    words: ["Halloo", "Selamat Datang", "Di Website", "Portofolio Saya", "Semoga Kamu Suka"],
+    loop: true,
+    delaySpeed: 2000,
+    typeSpeed: 100,
+    deleteSpeed: 50,
+  });
+
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const handleDownloadCV = async () => {
+    setIsDownloading(true);
+    try {
+      const response = await fetch("/cv/cv-mokhamad-rafi.pdf", { method: "HEAD" });
+      if (!response.ok) {
+        throw new Error("File tidak ditemukan");
+      }
+      const link = document.createElement("a");
+      link.href = "/cv/cv-mokhamad-rafi.pdf";
+      link.download = "CV-Mokhamad-Rafi.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("CV berhasil diunduh!", {
+        icon: "📄",
+        style: {
+          background: "#10b981",
+          color: "#fff",
+        },
+      });
+    } catch (error) {
+      toast.error("Maaf, terjadi kesalahan saat mengunduh CV. Silahkan coba lagi nanti.", {
+        icon: "❌",
+        style: {
+          background: "#ef4444",
+          color: "#fff",
+        },
+      });
+      console.error(" download error:", error);
+    } finally {
+      setTimeout(() => {
+        setIsDownloading(false);
+      }, 500);
+    }
+  };
+
   return (
     <>
+      
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+        }}
+      />
+      
       <div className="hero grid md:grid-cols-2 pt-10 items-center xl:gap-0 gap-6 grid-cols-1">
         <div className="animate__animated animate__fadeInUp animate__delay-2s">
           <div className="flex items-center gap-3 mb-6 bg-zinc-800 w-fit p-4 rounded-2xl">
             <img src={DataImage.HeroImage} alt="Hero Image" className="w-10 rounded-md" loading="lazy" />
-            <q>Lorem ipsum, dolor sit amet consectetur adipisicing.😀</q>
+            <q className="text-lg">
+              {text}
+              <Cursor cursorStyle="|" cursorColor="#8b5cf6" />
+            </q>
           </div>
           <h1 className="text-5xl/tight font-bold mb-6"> Hi, Saya Mokhamad Rafi</h1>
           <p className="text-base/loose mb-6 opacity-50">
@@ -30,9 +101,22 @@ function App() {
             cum at!
           </p>
           <div className="flex items-center sm:gap-4 gap-2">
-            <a href="#" className="bg-violet-700 p-4 rounded-2xl hover:bg-violet-600">
-              Download CV <i className="ri-download-line ri-lg"></i>
-            </a>
+            <button
+              onClick={handleDownloadCV}
+              disabled={isDownloading}
+              className="bg-violet-700 p-4 rounded-2xl hover:bg-violet-600 inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 min-w-40 justify-center cursor-pointer"
+            >
+              {isDownloading ? (
+                <>
+                  <i className="ri-loader-4-line ri-lg animate-spin"></i>
+                  <span>Menyiapkan...</span>
+                </>
+              ) : (
+                <>
+                  Download CV <i className="ri-download-line ri-lg"></i>
+                </>
+              )}
+            </button>
             <a href="#proyek" className="bg-zinc-700 p-4 rounded-2xl hover:bg-zinc-600">
               Lihat Proyek <i className="ri-arrow-down-line ri-lg"></i>
             </a>
@@ -40,7 +124,6 @@ function App() {
         </div>
         <img src={DataImage.HeroImage} alt="Hero Image" className="w-125 md:ml-auto animate__animated animate__fadeInUp animate__delay-3s" loading="lazy" />
       </div>
-
       {/* tentang */}
       <div className="tentang mt-32 py-10" id="tentang">
         <div className="xl:w-2/3 lg:w-3/4 w-full mx-auto p-7 bg-zinc-800 rounded-lg" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
@@ -67,28 +150,66 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="tools mt-32 ">
+        {/* my photos section */}
+        <div className="photos mt-32 ">
           <h1 className="text-4xl/snug font-bold mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-            Tools yang dipakai
+            My Photos
           </h1>
-          <p className="xl:w-2/5 lg:w-2/4 md:w-2/3 sm:w-3/4 w-full  text-base/loose opacity-50" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-once="true">
-            Berikut ini beberapa tools yang biasa saya pake untuk pembuatan website atau design
+          <p className="xl:w-2/5 lg:w-2/4 md:w-2/3 sm:w-3/4 w-full text-base/loose opacity-50" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-once="true">
+            Beberapa momen yang saya abadikan dalam foto
           </p>
-          <div className="tools-box mt-14 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
-            {listTools.map((tool) => (
-              <div className="flex items-center gap-2 p-3 border border-zinc-600 rounded-md hover:bg-zinc-800  group" key={tool.id} data-aos="fade-up" data-aos-duration="1000" data-aos-delay={tool.dad} data-aos-once="true">
-                <img src={tool.gambar} alt="none" className="w-14 bg-zinc-800 p-1 group-hover:bg-zinc-900" />
-                <div>
-                  <h4 className="font-bold">{tool.nama}</h4>
-                  <p className="opacity-50">{tool.ket}</p>
+
+          <div className="photos-box mt-14 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+            {listPhotos.map((photo, index) => (
+              <div
+                key={photo.id}
+                className="group relative overflow-hidden rounded-lg cursor-pointer"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay={photo.dad}
+                data-aos-once="true"
+                onClick={() => {
+                  setPhotoIndex(index);
+                  setOpen(true);
+                }}
+              >
+                <img src={photo.gambar} alt={photo.judul} className="w-full h-64 object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <i className="ri-search-eye-line ri-2x text-white"></i>
                 </div>
               </div>
             ))}
           </div>
+
+          <Lightbox
+            open={open}
+            close={() => setOpen(false)}
+            index={photoIndex}
+            slides={listPhotos.map((photo) => ({
+              src: photo.gambar,
+              alt: photo.judul,
+              title: photo.judul,
+              description: photo.deskripsi,
+            }))}
+            plugins={[Captions]}
+            on={{
+              view: ({ index }) => setPhotoIndex(index),
+            }}
+            styles={{
+              container: {
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              },
+              navigation: { color: "#8b5cf6" },
+            }}
+            controller={{
+              closeOnBackdropClick: true,
+            }}
+          />
         </div>
       </div>
       {/* tentang */}
-
       {/* proyek */}
       <div className="proyek mt-32 py-10" id="proyek">
         <h1 className="text-center text-4xl font-bold mb-2" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
@@ -115,7 +236,6 @@ function App() {
         </div>
       </div>
       {/* proyek */}
-
       {/* kontak */}
       <div className="kontak mt-32 sm:p-10 p-0" id="kontak">
         <h1 className="text-4xl mb-2 font-bold text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">

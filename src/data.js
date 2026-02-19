@@ -6,95 +6,87 @@ const Image = {
 
 export default Image;
 
-import Tools1 from "/assets/tools/vscode.png";
-import Tools2 from "/assets/tools/reactjs.png";
-import Tools3 from "/assets/tools/nextjs.png";
-import Tools4 from "/assets/tools/tailwind.png";
-import Tools5 from "/assets/tools/bootstrap.png";
-import Tools6 from "/assets/tools/js.png";
-import Tools7 from "/assets/tools/nodejs.png";
-import Tools8 from "/assets/tools/github.png";
-import Tools9 from "/assets/tools/ai.png";
-import Tools10 from "/assets/tools/canva.png";
-import Tools11 from "/assets/tools/figma.png";
+import photo1 from "/assets/photos/photo1.png";
+import photo2 from "/assets/photos/photo2.png";
+import photo3 from "/assets/photos/photo3.png";
+import photo4 from "/assets/photos/photo4.png";
+import photo5 from "/assets/photos/photo5.png";
+import photo6 from "/assets/photos/photo6.png";
+import photo7 from "/assets/photos/photo7.png";
+import photo8 from "/assets/photos/photo8.png";
+import photo9 from "/assets/photos/photo9.png";
+import photo10 from "/assets/photos/photo10.png";
 
-export const listTools = [
+export const listPhotos = [
   {
     id: 1,
-    gambar: Tools1,
-    nama: "Visual Studio Code",
-    ket: "Code Editor",
+    gambar: photo1,
+    nama: "foto 1",
+    deskripsi: "deskripsi foto 1",
     dad: "100",
   },
   {
     id: 2,
-    gambar: Tools2,
-    nama: "React JS",
-    ket: "Framework",
+    gambar: photo2,
+    nama: "foto 2",
+    deskripsi: "deskripsi foto 2",
     dad: "200",
   },
   {
     id: 3,
-    gambar: Tools3,
-    nama: "Next JS",
-    ket: "Framework",
+    gambar: photo3,
+    nama: "foto 3",
+    deskripsi: "deskripsi foto 3",
     dad: "300",
   },
   {
     id: 4,
-    gambar: Tools4,
-    nama: "Tailwind CSS",
-    ket: "Framework",
+    gambar: photo4,
+    nama: "foto 4",
+    deskripsi: "deskripsi foto 4",
     dad: "400",
   },
   {
     id: 5,
-    gambar: Tools5,
-    nama: "Bootstrap",
-    ket: "Framework",
+    gambar: photo5,
+    nama: "foto 5",
+    deskripsi: "deskripsi foto 5",
     dad: "500",
   },
   {
     id: 6,
-    gambar: Tools6,
-    nama: "Javascript",
-    ket: "Language",
+    gambar: photo6,
+    nama: "foto 6",
+    deskripsi: "deskripsi foto 6",
     dad: "600",
   },
   {
     id: 7,
-    gambar: Tools7,
-    nama: "Node JS",
-    ket: "Javascript Runtime",
+    gambar: photo7,
+    nama: "foto 7",
+    deskripsi: "deskripsi foto 7",
     dad: "700",
   },
   {
     id: 8,
-    gambar: Tools8,
-    nama: "Github",
-    ket: "Repository",
+    gambar: photo8,
+    nama: "foto 8",
+    deskripsi: "deskripsi foto 8",
     dad: "800",
   },
   {
     id: 9,
-    gambar: Tools9,
-    nama: "Adobe Illustrator",
-    ket: "Design App",
+    gambar: photo9,
+    nama: "foto 9",
+    deskripsi: "deskripsi foto 9",
     dad: "900",
   },
   {
     id: 10,
-    gambar: Tools10,
-    nama: "Canva",
-    ket: "Design App",
+    gambar: photo10,
+    nama: "foto 10",
+    deskripsi: "deskripsi foto 10",
     dad: "1000",
-  },
-  {
-    id: 11,
-    gambar: Tools11,
-    nama: "Figma",
-    ket: "Design App",
-    dad: "1100",
   },
 ];
 
