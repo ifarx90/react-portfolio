@@ -12,20 +12,41 @@ import "yet-another-react-lightbox/plugins/captions.css";
 function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Set loading true
+    setIsSending(true);
+
     emailjs
       .sendForm(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, e.target, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
       .then(() => {
-        alert("Pesan berhasil dikirim!");
-        e.target.reset();
+        toast.success("Pesan berhasil dikirim!", {
+          duration: 4000,
+          style: {
+            background: "#10b981",
+            color: "#fff",
+            padding: "16px",
+          },
+        });
+        e.target.reset(); // Reset form
       })
       .catch((error) => {
-        console.log(error);
-        alert("Gagal mengirim pesan. Silakan coba lagi.");
+        console.error("EmailJS error:", error);
+        toast.error("❌ Gagal mengirim pesan. Silakan coba lagi.", {
+          duration: 4000,
+          style: {
+            background: "#ef4444",
+            color: "#fff",
+            padding: "16px",
+          },
+        });
+      })
+      .finally(() => {
+        setIsSending(false); // Loading selesai
       });
   };
 
   const [text] = useTypewriter({
-    words: ["Halloo", "Selamat Datang", "Di Website", "Portofolio Saya", "Semoga Kamu Suka"],
+    words: ["Hai everyone", "Selamat Datang", "Di Website Portofolio Saya", "Semoga Kalian Suka yaa!!!"],
     loop: true,
     delaySpeed: 2000,
     typeSpeed: 100,
@@ -35,6 +56,7 @@ function App() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [open, setOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [isSending, setIsSending] = useState(false);
 
   const handleDownloadCV = async () => {
     setIsDownloading(true);
@@ -74,7 +96,6 @@ function App() {
 
   return (
     <>
-      
       <Toaster
         position="top-center"
         toastOptions={{
@@ -85,7 +106,7 @@ function App() {
           },
         }}
       />
-      
+
       <div className="hero grid md:grid-cols-2 pt-10 items-center xl:gap-0 gap-6 grid-cols-1">
         <div className="animate__animated animate__fadeInUp animate__delay-2s">
           <div className="flex items-center gap-3 mb-6 bg-zinc-800 w-fit p-4 rounded-2xl">
@@ -137,13 +158,13 @@ function App() {
             <div className="flex items-center gap-10">
               <div>
                 <h1 className="text-4xl mb-1">
-                  45 <span className="text-violet-500">+</span>
+                  1500 <span className="text-violet-500">+</span>
                 </h1>
                 <p>proyek selesai</p>
               </div>
               <div>
                 <h1 className="text-4xl mb-1">
-                  4 <span className="text-violet-500">+</span>
+                  400 <span className="text-violet-500">+</span>
                 </h1>
                 <p>Tahun Pengalaman</p>
               </div>
@@ -227,7 +248,7 @@ function App() {
                 <p className="text-base/loose mb-4">{proyek.desk}</p>
               </div>
               <div className="mt-8 text-center">
-                <a href="#" className="bg-violet-700 p-3 rounded-lg block border border-zinc-600 hover:bg-violet-600">
+                <a href={proyek.link} target="_blank" rel="noopener noreferrer" className="bg-violet-700 p-3 rounded-lg block border border-zinc-600 hover:bg-violet-600">
                   lihat
                 </a>
               </div>
@@ -261,8 +282,21 @@ function App() {
               <textarea name="message" id="pesan" cols="45" rows="7" placeholder="Pesan" className="border border-zinc-500 p-2 rounded-md" required></textarea>
             </div>
             <div className="text-center">
-              <button type="submit" className="bg-violet-700 p-3 rounded-lg w-full cursor-pointer  border border-zinc-600 hover:bg-violet-600">
-                Kirim Pesan
+              <button
+                type="submit"
+                disabled={isSending}
+                className="bg-violet-700 p-3 rounded-lg w-full cursor-pointer border border-zinc-600 hover:bg-violet-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                {isSending ? (
+                  <>
+                    <i className="ri-loader-4-line ri-lg animate-spin"></i>
+                    <span>Mengirim...</span>
+                  </>
+                ) : (
+                  <>
+                    Kirim Pesan <i className="ri-send-plane-line"></i>
+                  </>
+                )}
               </button>
             </div>
           </div>
