@@ -10,17 +10,27 @@ import PreLoader from "./PreLoader.jsx";
 
 import "animate.css";
 import AOS from "aos";
-import "aos/dist/aos.css"; // You can also use <link> for styles
-// ..
+import "aos/dist/aos.css";
+
+import { HackerModeProvider } from "./context/HackerModeContext";
+import HackerModeStyles from "./components/HackerModeStyles";
+import EasterEggTrigger from "./components/EasterEggTrigger";
+
 AOS.init();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <PreLoader />
-    <div className="container mx-auto px-4">
-      <Navbar />
-      <App />
-      <Footer />
-    </div>
+    <HackerModeProvider>
+      <EasterEggTrigger>
+        <PreLoader />
+        <HackerModeStyles>
+          <div className="container mx-auto px-4">
+            <Navbar />
+            <App />
+            <Footer />
+          </div>
+        </HackerModeStyles>
+      </EasterEggTrigger>
+    </HackerModeProvider>
   </StrictMode>,
 );

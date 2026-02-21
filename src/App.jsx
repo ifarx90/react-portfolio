@@ -8,6 +8,7 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import "yet-another-react-lightbox/plugins/captions.css";
+import TiltCard from "./components/TitlCard";
 
 function App() {
   const handleSubmit = async (e) => {
@@ -174,7 +175,7 @@ function App() {
         {/* my photos section */}
         <div className="photos mt-32 ">
           <h1 className="text-4xl/snug font-bold mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
-            My Photos
+            My Photos <i className="ri-image-line"></i>
           </h1>
           <p className="xl:w-2/5 lg:w-2/4 md:w-2/3 sm:w-3/4 w-full text-base/loose opacity-50" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-once="true">
             Beberapa momen yang saya abadikan dalam foto
@@ -257,6 +258,58 @@ function App() {
         </div>
       </div>
       {/* proyek */}
+
+{/* titl Card */}
+<div className="tilt-section mt-32 py-10" id="hobi-minat">
+  <h1 className="text-center text-4xl font-bold mb-2" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
+    Hobi & Minat Saya
+  </h1>
+  <p className="text-base/loose text-center opacity-50 mb-14" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" data-aos-once="true">
+    Hal-hal yang saya nikmati di luar aktivitas coding dan dunia digital
+  </p>
+  
+  <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+    {/* Card 1 - Musik */}
+    <TiltCard>
+      <div className="bg-linear-to-br from-violet-600 to-purple-800 p-6 rounded-2xl text-white h-80 flex flex-col justify-center items-center text-center">
+        <i className="ri-music-2-line ri-4x mb-4"></i>
+        <h3 className="text-2xl font-bold mb-2">Mendengarkan Musik</h3>
+        <p className="opacity-90">
+          Menikmati berbagai genre musik untuk meningkatkan fokus, kreativitas, serta suasana hati dalam aktivitas sehari-hari.
+        </p>
+      </div>
+    </TiltCard>
+
+    {/* Card 2 - Film */}
+    <TiltCard>
+      <div className="bg-linear-to-br from-blue-600 to-cyan-600 p-6 rounded-2xl text-white h-80 flex flex-col justify-center items-center text-center">
+        <i className="ri-movie-2-line ri-4x mb-4"></i>
+        <h3 className="text-2xl font-bold mb-2">Menonton Film</h3>
+        <p className="opacity-90">
+          Tertarik pada alur cerita dan visual sinematik yang dapat memberikan inspirasi serta sudut pandang baru.
+        </p>
+      </div>
+    </TiltCard>
+
+    {/* Card 3 - Mendaki */}
+    <TiltCard>
+      <div className="bg-linear-to-br from-amber-600 to-orange-600 p-6 rounded-2xl text-white h-80 flex flex-col justify-center items-center text-center">
+        <i className="ri-tent-fill ri-4x mb-4"></i>
+        <h3 className="text-2xl font-bold mb-2">Mendaki Gunung</h3>
+        <p className="opacity-90">
+          Melakukan kegiatan mendaki untuk menikmati alam, melatih ketahanan diri, serta menjaga keseimbangan antara aktivitas digital dan fisik.
+        </p>
+      </div>
+    </TiltCard>
+  </div>
+
+  {/* Catatan kecil untuk mobile */}
+  <p className="text-center text-sm opacity-50 mt-8 md:hidden block">
+    Tap card untuk efek sentuh
+  </p>
+</div>
+{/* titl Card */}
+
       {/* kontak */}
       <div className="kontak mt-32 sm:p-10 p-0" id="kontak">
         <h1 className="text-4xl mb-2 font-bold text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">

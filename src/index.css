@@ -5,3 +5,98 @@
         font-family: "Poppins", sans-serif;
     }
 }
+
+.tilt-card-wrapper {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Pastikan card tidak overflow dan tetap smooth */
+.tilt-card-wrapper > * {
+  transform: translateZ(20px);
+  backface-visibility: hidden;
+}
+
+/* Mobile tap effect tanpa blur */
+@media (max-width: 768px) {
+  .tilt-card-wrapper {
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+    cursor: pointer;
+  }
+  
+  .tilt-card-wrapper:active {
+    transform: scale(0.98) !important;
+  }
+}
+
+/* Hacker Mode Styles */
+.hacker-mode {
+  background-color: #000000 !important;
+  color: #00ff00 !important;
+  font-family: 'Courier New', monospace !important;
+  transition: all 0.3s ease;
+}
+
+.hacker-mode h1, 
+.hacker-mode h2, 
+.hacker-mode h3, 
+.hacker-mode h4, 
+.hacker-mode h5, 
+.hacker-mode h6,
+.hacker-mode p,
+.hacker-mode a,
+.hacker-mode span,
+.hacker-mode div:not(.fixed):not(.bg-black) {
+  background-color: transparent !important;
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+}
+
+.hacker-mode .bg-zinc-800,
+.hacker-mode .bg-zinc-700,
+.hacker-mode .bg-violet-700,
+.hacker-mode .bg-gradient-to-br {
+  background: #111111 !important;
+  border: 1px solid #00ff00 !important;
+}
+
+.hacker-mode img {
+  filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(50deg) saturate(300%);
+}
+
+.hacker-mode a:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.hacker-mode input,
+.hacker-mode textarea {
+  background-color: #111 !important;
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+}
+
+.hacker-mode input::placeholder,
+.hacker-mode textarea::placeholder {
+  color: #006600 !important;
+}
+
+.hacker-mode .ri-2x,
+.hacker-mode .ri-4x {
+  color: #00ff00 !important;
+}
+
+/* Animasi untuk hacker mode */
+@keyframes flicker {
+  0% { opacity: 0; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: scale(0.9); }
+  10% { opacity: 1; transform: scale(1); }
+  80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
